@@ -2,23 +2,21 @@ import React from 'react'
 import {Route,createBrowserRouter,createRoutesFromElements,RouterProvider} from 'react-router-dom'
 import './index.css';
 
-import Home from './pages/Home.jsx'
-import MainLayout from './layouts/MainLayout.jsx'
-import LoginRegister from './pages/LoginRegister.jsx'
-import VehicleList from './pages/VehicleList.jsx';
+import HomePage from './pages/HomePage.jsx'
+import LoginPage from './pages/LoginPage.jsx'
+import VehicleListPage from './pages/VehicleListPage.jsx';
 import RegistrationPage from './pages/RegistrationPage.jsx';
-
-import Edit from './pages/Edit.jsx';
+import EditPage from './pages/EditPage.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements( 
   <>
     
-    <Route index element= {<LoginRegister/>}/>
-    <Route path="/Home" element= {<Home/>}/>
-    <Route path="/VehicleList" element= {<VehicleList/>}/>
+    <Route index element= {<LoginPage/>}/>
+    <Route path="/Home" element= {<HomePage/>}/>
+    <Route path="/VehicleList" element= {<VehicleListPage/>}/>
     <Route path="/Registration" element= {<RegistrationPage/>}/>
-    <Route path='/Edit' element= {<Edit/>}/>
+    <Route path='/Edit' element= {<EditPage/>}/>
     
   </>
   
@@ -29,7 +27,6 @@ const App = () => {
   const names = ['annef','ajx','raku'];
   return (
     <RouterProvider router = {router} />
-    // <WebCam/>
   )
 }
 
