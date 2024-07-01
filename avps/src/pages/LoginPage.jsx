@@ -1,5 +1,4 @@
 import React from 'react'
-import Navbar from '../components/Navbar'
 import LoginRegister from '../components/LoginRegister'
 
 const LoginPage = () => {
