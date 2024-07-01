@@ -49,6 +49,11 @@ function Hero() {
                     </div>
                      <div className="lg:col-span-1 mt-8 lg:mt-0">
                     <WebCam height={340} width={640} audio={false} />
+                        <div className="flex justify-center">
+                        <button className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-gray-800 text-xl font-bold mb-8">
+                                VERIFY
+                        </button>
+                        </div>
                     </div> 
                 </div>
             </div>

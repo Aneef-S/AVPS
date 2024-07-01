@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import Webcam from "react-webcam";
 
+
 const WebCam = () => {
   const webRef = useRef(null);
   const [imageData, setImageData] = useState(null); // Store captured image data
@@ -13,7 +14,7 @@ const WebCam = () => {
   return (
     <div className="web">
       <Webcam ref={webRef} />
-      <button onClick={captureImage}>Capture Image</button>
+      <button onClick={captureImage} ></button>
       {imageData && ( // Conditionally render image if captured
         <img src={imageData} alt="Captured from Webcam" />
       )}
