@@ -1,9 +1,20 @@
+import React from 'react';
 import heroImage from '../assets/car.jpeg'; // Replace with your hero image path
 import { Link } from 'react-router-dom';
 import WebCam from './WebCam';
+import axios from 'axios';
+
 function Hero() {
+    const handleVerify = async () => {
+        try {
+            const response = await axios.post('http://localhost:5000/verify');
+            console.log(response.data.message);
+        } catch (error) {
+            console.error("There was an error verifying!", error);
+        }
+    };
+
     return (
-        
         <div className="bg-gray-900 text-white"> 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                 <div className="lg:grid lg:grid-cols-2 lg:gap-8">
@@ -32,27 +43,30 @@ function Hero() {
                             </Link>
                         </div>
                         <div className="flex justify-center">
-                        <Link to="/Registration">
-                            <button className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-gray-800 text-xl font-bold mb-8">
-                                Admit Guest
-                            </button>
-                        </Link>
+                            <Link to="/Registration">
+                                <button className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-gray-800 text-xl font-bold mb-8">
+                                    Admit Guest
+                                </button>
+                            </Link>
                         </div>
                         <div className="flex justify-center">
-                        <Link to="/Edit">
-                            <button className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-gray-800 text-xl font-bold mb-8">
-                                Edit Users
-                            </button>
-                        </Link>
+                            <Link to="/Edit">
+                                <button className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-gray-800 text-xl font-bold mb-8">
+                                    Edit Users
+                                </button>
+                            </Link>
                         </div>
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16"></div>
                     </div>
-                     <div className="lg:col-span-1 mt-8 lg:mt-0">
-                    <WebCam height={340} width={640} audio={false} />
+                    <div className="lg:col-span-1 mt-8 lg:mt-0">
+                        {/* <WebCam height={340} width={640} audio={false} /> */}
                         <div className="flex justify-center">
-                        <button className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-gray-800 text-xl font-bold mb-8">
+                            <button
+                                onClick={handleVerify}
+                                className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-gray-800 text-xl font-bold mb-8"
+                            >
                                 VERIFY
-                        </button>
+                            </button>
                         </div>
                     </div> 
                 </div>
