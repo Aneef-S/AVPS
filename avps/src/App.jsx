@@ -1,7 +1,7 @@
 import React from 'react'
 import {Route,createBrowserRouter,createRoutesFromElements,RouterProvider} from 'react-router-dom'
 import './index.css';
-
+import { FirebaseProvider } from './context/Firebase.jsx';
 import HomePage from './pages/HomePage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import VehicleListPage from './pages/VehicleListPage.jsx';
@@ -26,7 +26,11 @@ const App = () => {
 
   const names = ['annef','ajx','raku'];
   return (
-    <RouterProvider router = {router} />
+    <div>
+      <RouterProvider router = {router} />
+      <FirebaseProvider/>
+    </div>
+    
   )
 }
 

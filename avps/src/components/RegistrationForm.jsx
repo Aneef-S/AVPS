@@ -1,40 +1,40 @@
 import React, { useState } from "react";
 //import './registration.css';
+import { useFirebase } from "../context/Firebase";
 
 const RegistrationForm = () => {
+    const firebase = useFirebase();
+
     const [vehicleNumber, setVehicleNumber] = useState("");
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [position, setPosition] = useState("");
     const [email, setEmail] = useState("");
 
-    const handleRegister = (event) => {
-        const data1 = {
-            vehicleNumber,
-            name,
-            phone,
-            position,
-            email,
-        };
-
-        const localStorageData = JSON.parse(localStorage.getItem("users_data")) || [];
-        const ans = [data1, ...localStorageData];
-        localStorage.setItem("users_data", JSON.stringify(ans));
-        alert('Registration successful');
-        
-        setVehicleNumber("");
-        setName("");
-        setPhone("");
-        setPosition("");
-        setEmail("");
-        window.location.reload();
+    const handleRegister = async (e) => {
+        e.preventDefault();
+        try{
+            await firebase.handleRegistrationForm(vehicleNumber,name,phone,position,email)
+            alert('Registration Successfull')
+        }
+        catch(error){
+            console.error('Registration failed:', error);
+            alert('Registration failed. Please try again.')
+        }
+        finally {
+            setVehicleNumber("");
+            setName("");
+            setPhone("");
+            setPosition("");
+            setEmail("");
+          }
     };
 
     return (
         <div className="flex justify-center items-center h-screen bg-gray-900">
             <div className="bg-gray-100 w-96 h-auto rounded-lg shadow-lg p-10 relative ">
                 <h1 className="text-center text-xl font-bold mb-4">Registration</h1>
-                <form onSubmit={e => { e.preventDefault(); handleRegister(e); }}>
+                <form onSubmit={e => { handleRegister(e); }}>
                     <hr className="mb-4 opacity-30" />
                     <input
                         type="text"
