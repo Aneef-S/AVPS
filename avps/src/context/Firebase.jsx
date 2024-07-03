@@ -38,14 +38,14 @@ export const FirebaseProvider = (props) => {
         const querySnapshot = await getDocs(registrationsRef);
         const registrationData = querySnapshot.docs.map(doc => doc.data());
         const registration = registrationData.find(registration => registration.vehicleNumber.toLowerCase() === vehicleNumber.toLowerCase());
-
+    
         if (registration) {
             // Vehicle number found in registrations, check if it exists in entryDetails
             const entryDetailsRef = collection(firestore, 'entryDetails');
             const entryDetailsQuery = await getDocs(entryDetailsRef);
             const entryDetailsData = entryDetailsQuery.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             const entryDetails = entryDetailsData.find(entry => entry.vehicleNumber.toLowerCase() === vehicleNumber.toLowerCase());
-
+    
             if (entryDetails) {
                 // Update entryTime in entryDetails
                 const entryDocRef = doc(firestore, 'entryDetails', entryDetails.id);
@@ -53,18 +53,17 @@ export const FirebaseProvider = (props) => {
                     entryTime: new Date(),
                 });
             } else {
-                // Add new entry in entryDetails (shouldn't happen based on your requirement)
-                console.log(`Vehicle ${vehicleNumber} already has an entry in entryDetails.`);
-                return;
+                // Add new entry in entryDetails
+                await addDoc(entryDetailsRef, {
+                    vehicleNumber,
+                    entryTime: new Date(),
+                    position: registration.position // Use position from registration
+                });
             }
         } else {
-            // Vehicle number not found in registrations, add new entry in entryDetails
-            const entryDetailsRef = collection(firestore, 'entryDetails');
-            await addDoc(entryDetailsRef, {
-                vehicleNumber,
-                entryTime: new Date(),
-                position: 'Guest'
-            });
+            // Vehicle number not found in registrations, log an error (shouldn't happen based on your requirement)
+            console.log(`Vehicle ${vehicleNumber} is not registered.`);
+            return;
         }
     };
     

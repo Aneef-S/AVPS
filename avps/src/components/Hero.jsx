@@ -14,6 +14,7 @@ function Hero() {
   const [allRegistrationsCount, setAllRegistrationsCount] = useState(0);
   const [guestsInsideCount, setGuestsInsideCount] = useState(0);
   const [vehiclesInsideCount, setVehiclesInsideCount] = useState(0);
+  const [command, setCommand] = useState('');
 
   useEffect(() => {
     const fetchVehicleNumbers = async () => {
@@ -62,6 +63,15 @@ function Hero() {
     socket.on("text_detected", async (data) => {
       setDetectedText(data.text);
       const temp = vehicleNumbers.includes(data.text); // Check if detected text is in vehicleNumbers
+      axios.post('http://localhost:5000/update_command', { temp })
+        .then(response => {
+            //console.log(response.data);
+            // Handle response if needed
+        })
+        .catch(error => {
+            console.error('Error sending command:', error);
+            // Handle error if needed
+        });
       setIsPresent(temp);
       if (temp) {
         try {
@@ -77,6 +87,11 @@ function Hero() {
       socket.off("text_detected");
     };
   }, [vehicleNumbers, addOrUpdateEntryDetails]);
+
+
+  const sendCommand = (command) => {
+    
+    };
 
   const handleVerify = async () => {
     try {
