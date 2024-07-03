@@ -24,7 +24,7 @@ function Navbar() {
                         <div className="text-white hover:bg-gray-700 px-3 py-2 rounded">Register User</div>
                     </Link>
 
-                    <Link to="#">
+                    <Link to="https://github.com/anandnair10/AVPS">
                         <div className="text-white hover:bg-gray-700 px-3 py-2 rounded">Services</div>
                     </Link>
 

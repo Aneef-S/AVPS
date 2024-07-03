@@ -92,7 +92,7 @@ function Hero() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="lg:grid lg:grid-cols-2 lg:gap-8">
           <div className="lg:col-span-1">
-            <h1 className="text-2xl font-bold mb-10">
+            <h1 className="text-2xl font-bold mb-10 flex justify-center">
               AUTOMATED VEHICLE PASS SYSTEM
             </h1>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
@@ -148,8 +148,8 @@ function Hero() {
             <div className="flex justify-center">
               <p>
                 {isPresent
-                  ? "Vehicle is registered."
-                  : "Vehicle is not registered!!"}
+                  ? "VEHICLE IS REGISTERED."
+                  : "VEHICLE IS NOT REGISTERED!!"}
               </p>
             </div>
           </div>
