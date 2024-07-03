@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { getFirestore, collection, addDoc, getDocs, doc, setDoc, updateDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc,where, getDocs, doc, setDoc, updateDoc,query } from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyB2i0nfAdK6_W3nDl7CvXw5oEGiORXvJq4",
@@ -21,6 +21,16 @@ const firebaseAuth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp);
 
 export const FirebaseProvider = (props) => {
+    const handleRegistrationForm = async (vehicleNumber, name, phone, position, email) => {
+        return await addDoc(collection(firestore, 'registration'), {
+            vehicleNumber,
+            name,
+            phone,
+            position,
+            email
+        });
+    };
+
     const addOrUpdateEntryDetails = async (vehicleNumber) => {
         vehicleNumber = vehicleNumber.toUpperCase();
         // Check if vehicleNumber is in registrations
@@ -100,15 +110,49 @@ export const FirebaseProvider = (props) => {
             return []; // Return empty array in case of error
         }
     };
+
+
+    const getGuestsDetails = async () => {
+        try {
+            // Fetch guest entries from entryDetails
+            const guestsQuery = query(collection(firestore, 'entryDetails'), where('position', '==', 'Guest'));
+            const querySnapshot = await getDocs(guestsQuery);
+            const guestDetails = querySnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data(),
+                entryTime: doc.data().entryTime.toDate() // Convert Firebase timestamp to JavaScript Date object
+            }));
+    
+            // Fetch all registrations
+            const registrationsQuerySnapshot = await getDocs(collection(firestore, 'registration'));
+            const registrationData = registrationsQuerySnapshot.docs.map(doc => doc.data());
+    
+            // Merge guest entries with corresponding registration details
+            const combinedGuestDetails = guestDetails.map(guest => {
+                const registration = registrationData.find(reg => reg.vehicleNumber.toLowerCase() === guest.vehicleNumber.toLowerCase());
+                return {
+                    ...guest,
+                    ...registration // Merge registration details if available
+                };
+            });
+    
+            return combinedGuestDetails;
+        } catch (error) {
+            console.error("Error fetching guest details:", error);
+            return []; // Return empty array in case of error
+        }
+    };
     
 
     return (
         <FirebaseContext.Provider value={{
+            handleRegistrationForm,
             signInUserWithEmailAndPass,
             addOrUpdateEntryDetails,
             getVehicleNumbers,
             getAllRegistrations,
-            getEntryDetailsWithRegistrations
+            getEntryDetailsWithRegistrations,
+            getGuestsDetails
         }}>
             {props.children}
         </FirebaseContext.Provider>
