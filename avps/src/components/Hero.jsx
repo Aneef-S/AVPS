@@ -129,9 +129,9 @@ function Hero() {
                 </button>
               </Link>
             </div> */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16"></div>
+            <div className="max-w-7xl mx-auto px-4 sm: lg: py-1"></div>
           </div>
-          <div className="lg:col-span-1 mt-8 lg:mt-0 pt-24">
+          <div className="lg:col-span-1 mt-8 lg:mt-0 py-20">
             <div className="flex justify-center">
               <button
                 onClick={handleVerify}
