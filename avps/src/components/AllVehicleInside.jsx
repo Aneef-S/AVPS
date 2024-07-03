@@ -14,7 +14,7 @@ const VehicleDetails = (props) => {
         entryTime: vehicle.entryTime ? vehicle.entryTime.toLocaleString() : 'N/A',
         exitTime: vehicle.exitTime ? vehicle.exitTime.toLocaleString() : 'N/A'
       }));
-      console.log(formattedData);
+      console.log(data);
       setInsideVehicleData(formattedData);
     };
 

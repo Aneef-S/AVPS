@@ -50,7 +50,7 @@ export const FirebaseProvider = (props) => {
                 // Update entryTime in entryDetails
                 const entryDocRef = doc(firestore, 'entryDetails', entryDetails.id);
                 await updateDoc(entryDocRef, {
-                    entryTime: new Date(),
+                    exitTime: new Date(),
                 });
             } else {
                 // Add new entry in entryDetails
@@ -92,16 +92,21 @@ export const FirebaseProvider = (props) => {
             const entryDetailsQuerySnapshot = await getDocs(collection(firestore, 'entryDetails'));
             const entryDetails = entryDetailsQuerySnapshot.docs.map(doc => ({
                 ...doc.data(),
-                entryTime: doc.data().entryTime.toDate() // Convert Firebase timestamp to JavaScript Date object
+                entryTime: doc.data().entryTime.toDate(), // Convert Firebase timestamp to JavaScript Date object
+                exitTime: doc.data().exitTime ? doc.data().exitTime.toDate() : null // Convert Firebase timestamp to JavaScript Date object if it exists
             }));
     
             // Merge entryDetails with registrations based on vehicleNumber
             const vehicleNumbersSet = new Set(entryDetails.map(entry => entry.vehicleNumber.toLowerCase()));
             const combinedData = registrationData.filter(registration => vehicleNumbersSet.has(registration.vehicleNumber.toLowerCase()))
-                .map(registration => ({
-                    ...registration,
-                    entryTime: entryDetails.find(entry => entry.vehicleNumber.toLowerCase() === registration.vehicleNumber.toLowerCase()).entryTime
-                }));
+                .map(registration => {
+                    const entry = entryDetails.find(entry => entry.vehicleNumber.toLowerCase() === registration.vehicleNumber.toLowerCase());
+                    return {
+                        ...registration,
+                        entryTime: entry.entryTime,
+                        exitTime: entry.exitTime
+                    };
+                });
     
             return combinedData;
         } catch (error) {
