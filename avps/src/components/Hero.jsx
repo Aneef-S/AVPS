@@ -88,7 +88,7 @@ function Hero() {
   };
 
   return (
-    <div className="bg-gray-900 text-white">
+    <div className="bg-gray-900 text-white h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="lg:grid lg:grid-cols-2 lg:gap-8">
           <div className="lg:col-span-1">
@@ -122,13 +122,13 @@ function Hero() {
                 </button>
               </Link>
             </div>
-            <div className="flex justify-center">
+            {/* <div className="flex justify-center">
               <Link to="/Edit">
                 <button className="bg-blue-500 text-white px-6 py-3 rounded-md hover:bg-gray-800 text-xl font-bold mb-8">
                   Edit Users
                 </button>
               </Link>
-            </div>
+            </div> */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16"></div>
           </div>
           <div className="lg:col-span-1 mt-8 lg:mt-0 pt-24">
