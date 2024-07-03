@@ -1,10 +1,10 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
-import VehicleDetails from '../components/AllVehicleDetails';
+import VehicleDetails from '../components/AllVehicleInside';
 import Footer from '../components/Footer';
 import { useLocation } from 'react-router-dom';
 
-const VehicleList = () => {
+const VehicleInsidePage = () => {
     const location = useLocation();
 
     React.useEffect(() => {
@@ -23,4 +23,4 @@ const VehicleList = () => {
     );
 };
 
-export default VehicleList
+export default VehicleInsidePage

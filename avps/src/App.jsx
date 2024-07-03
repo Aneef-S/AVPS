@@ -7,6 +7,8 @@ import LoginPage from './pages/LoginPage.jsx'
 import VehicleListPage from './pages/VehicleListPage.jsx';
 import RegistrationPage from './pages/RegistrationPage.jsx';
 import EditPage from './pages/EditPage.jsx';
+import AllVehicleInside from './components/AllVehicleInside.jsx';
+import VehicleInsidePage from './pages/VehicleInsidePage.jsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements( 
@@ -17,6 +19,7 @@ const router = createBrowserRouter(
     <Route path="/VehicleList" element= {<VehicleListPage/>}/>
     <Route path="/Registration" element= {<RegistrationPage/>}/>
     <Route path='/Edit' element= {<EditPage/>}/>
+    <Route path='/VehicleInside' element= {<VehicleInsidePage/>}/>
     
   </>
   
